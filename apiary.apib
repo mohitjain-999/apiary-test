@@ -1,11 +1,11 @@
 FORMAT: 1A
 HOST: http://www.decorist.com/
 
-# mohit123
+# apiary test
 
-Polls is a simple API allowing consumers to view polls and vote in them.
+this is simple app to test apiary integration for API documentation.
 
-## Questions Collection [/questions]
+## Questions Collection [/apiary]
 
 ### List All Questions [GET]
 
@@ -59,7 +59,7 @@ form of choices.
 
     + Body
 
-            {
+            {   
                 "question": "Favourite programming language?",
                 "published_at": "2015-08-05T08:40:51.620Z",
                 "choices": [
@@ -78,3 +78,40 @@ form of choices.
                     }
                 ]
             }
+
+### Update a Question with id [PUT]
++ Request (application/json)
+
+        {
+            "id": "2",
+            "question": "What is your favourite programming language?"
+        }
+
++ Response 200 (application/json)
+
+    + Headers
+
+            Location: /questions/2
+
+    + Body
+
+            {   
+                "question": "What is your favourite programming language?",
+                "published_at": "2015-08-05T08:40:51.620Z",
+                "choices": [
+                    {
+                        "choice": "Swift",
+                        "votes": 0
+                    }, {
+                        "choice": "Python",
+                        "votes": 0
+                    }, {
+                        "choice": "Objective-C",
+                        "votes": 0
+                    }, {
+                        "choice": "Ruby",
+                        "votes": 0
+                    }
+                ]
+            }
+
