@@ -1,120 +1,613 @@
 FORMAT: 1A
-HOST: http://www.decorist.com/
 
-# apiary test
+# Decorist APIs
 
-this is simple app to test apiary integration for API documentation.
+These are decorist APIs
 
-## Questions Collection [/apiary]
+## Group products
 
-### List All Questions [GET]
+Products API for all brands, selection of brand-specific data sets is done using the "sitecode" attribute
+
+### /products
+
+#### GET
 
 + Response 200 (application/json)
 
-        [
-            {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 2048
-                    }, {
-                        "choice": "Python",
-                        "votes": 1024
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 512
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 256
-                    }
-                ]
-            }
-        ]
+    Properties (Decorist, One Kings Lane, etc)
 
-### Create a New Question [POST]
+    + Body
 
-You may create your own question using this action. It takes a JSON
-object containing a question and a collection of answers in the
-form of choices.
-
-+ Request (application/json)
-
-        {
-            "question": "Favourite programming language?",
-            "choices": [
-                "Swift",
-                "Python",
-                "Objective-C",
-                "Ruby"
+            [
+                {
+                    "UUID": "[Product UUID]",
+                    "name": "Product name",
+                    "category": [
+                        {
+                            "UUID": "Category UUID",
+                            "name": "Category Name"
+                        },
+                        
+                    ],
+                    "CreationDate": "Date",
+                    "price": "Product price"
+                },
+                
             ]
-        }
+
+#### POST
 
 + Response 201 (application/json)
 
-    + Headers
-
-            Location: /questions/2
+    OK
 
     + Body
 
-            {   
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 0
-                    }, {
-                        "choice": "Python",
-                        "votes": 0
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 0
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 0
-                    }
-                ]
+            {
+              "UUID": "New product UUID"
             }
 
-### Update a Question with id [PUT]
+### /products/search
 
-You may update your existing question using this action. It takes a JSON
-object containing a question id and other fields which need to be updated.
+#### 
 
-+ Request (application/json)
+### /products/{pk}
 
-        {
-            "id": "2",
-            "question": "What is your favourite programming language?"
-        }
+#### GET
+
++ Parameters
+
+    + pk (required)
 
 + Response 200 (application/json)
 
-    + Headers
-
-            Location: /questions/2
+    OK
 
     + Body
 
-            {   
-                "question": "What is your favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
+            {
+                "UUID": "[Product UUID]",
+                "name": "Product name",
+                "category": [
                     {
-                        "choice": "Swift",
-                        "votes": 0
-                    }, {
-                        "choice": "Python",
-                        "votes": 0
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 0
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 0
-                    }
+                        "UUID": "Category UUID",
+                        "name": "Category Name"
+                    },
+                    
+                ],
+                "color": [
+                    {
+                        "UUID": "Color UUID",
+                        "name": "Color Name"
+                    },
+                    
+                ],
+                "vendor":{
+                            "UUID": "Vendor UUID",
+                            "name": "Vendor Name"
+                        },
+                "vendor_url": "Vendor site URL",
+                "images": [
+                    "image url",
+                    
+                ],
+                "size": {
+                    "unit": "inches",
+                    "height": "10",
+                    "width": "10",
+                    "depth": "10"
+                },
+                "style": [
+                    "style ID",
+                    
+                ],
+                "meta": {
+                    "Keywords": "Product keywords",
+                    "Description": "Product Description",
+                    "canonical": "Product canonical URL"
+                },
+                "price": "15.21",
+                "item_availability": Boolean,
+                "CreationDate": "Date"
+            },
+
+#### PUT
+
++ Parameters
+
+    + pk (required)
+
++ Response 204 (application/json)
+
+    OK
+
+    + Body
+
+            {}
+
+#### DELETE
+
++ Parameters
+
+    + pk (required)
+
++ Response 204 (application/json)
+
+    OK
+
+    + Body
+
+            {}
+
+## Group design-solutions
+
+APIs for design-solution
+
+### /design-solutions
+
+#### GET
+
++ Response 200 (application/json)
+
+    OK
+
+    + Body
+
+            {
+                [
+                    {
+                        "UUID": "[Solution UUID]",
+                        "Key": "Solution Key",
+                        "Designer": {
+                            "UUID": "Designer UUID"
+                        },
+                        "Customer": {
+                            "UUID": "Customer UUID"
+                        },
+                        "Room": "Solution room",
+                        "CreationDate": "Date",
+                        "InternalDueDate": "Date",
+                        "ExternalDueDate": "Date",
+                        "Status": "Solution Status",
+                        "Notes": "Solution Notes"
+                    },
+                    
                 ]
             }
+
+#### POST
+
++ Response 201 (application/json)
+
+    OK
+
+    + Body
+
+            {
+              "UUID": "New solution UUID"
+            }
+
+### /design-solutions/list_by_designer
+
+#### 
+
+### /design-solutions/list_by_user
+
+#### 
+
+### /design-solutions/search
+
+#### 
+
+### /design-solutions/{pk}
+
+#### GET
+
++ Parameters
+
+    + pk (required)
+
++ Response 200 (application/json)
+
+    OK
+
+    + Body
+
+            {
+              "UUID": "[Solution UUID]",
+              "Key": "Solution Key",
+              "Designer": {
+                "UUID": "Designer UUID"
+              },
+              "Customer": {
+                "UUID": "Customer UUID"
+              },
+              "Room": "Solution room",
+              "CreationDate": "Date",
+              "InternalDueDate": "Date",
+              "ExternalDueDate": "Date",
+              "Status": "Solution Status",
+              "Notes": "Solution Notes"
+            }
+
+#### PUT
+
++ Parameters
+
+    + pk (required)
+
++ Response 204 (application/json)
+
+    OK
+
+    + Body
+
+            {
+              "UUID": "[Solution UUID]",
+              "Key": "Solution Key",
+              "Designer": {
+                "UUID": "Designer UUID"
+              },
+              "Customer": {
+                "UUID": "Customer UUID"
+              },
+              "Room": "Solution room",
+              "CreationDate": "Date",
+              "InternalDueDate": "Date",
+              "ExternalDueDate": "Date",
+              "Status": "Solution Status",
+              "Notes": "Solution Notes"
+            }
+
+#### DELETE
+
++ Parameters
+
+    + pk (required)
+
++ Response 204 (application/json)
+
+    OK
+
+    + Body
+
+            {
+              "UUID": "[Solution UUID]",
+              "Key": "Solution Key",
+              "Designer": {
+                "UUID": "Designer UUID"
+              },
+              "Customer": {
+                "UUID": "Customer UUID"
+              },
+              "Room": "Solution room",
+              "CreationDate": "Date",
+              "InternalDueDate": "Date",
+              "ExternalDueDate": "Date",
+              "Status": "Solution Status",
+              "Notes": "Solution Notes"
+            }
+
+## Group boards
+
+Operations about design boards
+
+### /boards
+
+#### GET
+
++ Response 200 (application/json)
+
+    OK
+
+    + Body
+
+            {
+                [
+                    {
+                        "UUID": "[Board UUID]",
+                        "Author": {
+                            "UUID": "Author UUID"
+                        },
+                        "CreationDate": "Date",
+                        "Name": "Board Name"
+                    },
+                    
+                ]
+            }
+
+#### POST
+
++ Response 201 (application/json)
+
+    OK
+
+    + Body
+
+            {}
+
+### /boards/list_by_author
+
+#### 
+
+### /boards/search
+
+#### 
+
+### /boards/{pk}
+
+#### GET
+
++ Parameters
+
+    + pk (required)
+
++ Response 200 (application/json)
+
+    Primary key
+
+    + Body
+
+            {
+              "UUID": "New Board UUID"
+            }
+
+#### PUT
+
++ Parameters
+
+    + pk (required)
+
++ Response 204 (application/json)
+
+    Primary key
+
+    + Body
+
+            {}
+
+#### DELETE
+
++ Parameters
+
+    + pk (required)
+
++ Response 204 (application/json)
+
+    Primary key
+
+    + Body
+
+            {}
+
+### /boards/{pk}/send
+
+#### POST
+
++ Parameters
+
+    + pk (required)
+
++ Response 204 (application/json)
+
+    Primary key, email(s)
+
+    + Body
+
+            {}
+
+## Group user
+
+Operations about user
+
+### /users
+
+#### GET
+
++ Response 200 (application/json)
+
+    OK
+
+    + Body
+
+            {
+                [
+                    {
+                        "UUID": "[User UUID]",
+                        "first_name": "First Name", 
+                        "last_name": "Last Name",
+                        "is_admin": Boolean,
+                        "groups": [
+                            {
+                                "UUID": "Group UUID",
+                                "Name": "Group name"
+                            },
+                            
+                        ],
+                        "CreationDate": "Date"
+                    },
+                    
+                ]
+            }
+
+#### POST
+
++ Response 201 (application/json)
+
+    OK
+
+    + Body
+
+            {
+              "UUID": "New User UUID"
+            }
+
+### /users/list_by_group
+
+#### 
+
+### /users/search
+
+#### 
+
+### /users/{pk}
+
+#### GET
+
++ Parameters
+
+    + pk (required)
+
++ Response 200 (application/json)
+
+    Primary key
+
+    + Body
+
+            {
+                "UUID": "[User UUID]",
+                "first_name": "First Name", 
+                "last_name": "Last Name",
+                "is_admin": Boolean,
+                "groups": [
+                    {
+                        "UUID": "Group UUID",
+                        "Name": "Group name"
+                    },
+                    
+                ],
+                "CreationDate": "Date"
+            }
+
+#### PUT
+
++ Parameters
+
+    + pk (required)
+
++ Response 204 (application/json)
+
+    Primary key
+
+    + Body
+
+            {}
+
+#### DELETE
+
++ Parameters
+
+    + pk (required)
+
++ Response 204 (application/json)
+
+    Primary key
+
+    + Body
+
+            {}
+
+### /users/reset_password
+
+#### POST
+
++ Response 204 (application/json)
+
+    Email address
+
+    + Body
+
+            {}
+
+## Group design-orders
+
+Operations about design-orders
+
+### /design-orders
+
+#### GET
+
++ Response 200 (application/json)
+
+    OK
+
+    + Body
+
+            {
+                [
+                    {
+                        "UUID": "[User UUID]",
+                        "first_name": "First Name", 
+                        "last_name": "Last Name",
+                        "is_admin": Boolean,
+                        "groups": [
+                            {
+                                "UUID": "Group UUID",
+                                "Name": "Group name"
+                            },
+                            
+                        ],
+                        "CreationDate": "Date"
+                    },
+                    
+                ]
+            }
+
+#### POST
+
++ Response 201 (application/json)
+
+    OK
+
+    + Body
+
+            {
+              "UUID": "New User UUID"
+            }
+
+### /design-orders/search
+
+#### 
+
+### /design-orders/{pk}
+
+#### GET
+
++ Parameters
+
+    + pk (required)
+
++ Response 200 (application/json)
+
+    Primary key
+
+    + Body
+
+            {
+                "UUID": "[User UUID]",
+                "first_name": "First Name", 
+                "last_name": "Last Name",
+                "is_admin": Boolean,
+                "groups": [
+                    {
+                        "UUID": "Group UUID",
+                        "Name": "Group name"
+                    },
+                    
+                ],
+                "CreationDate": "Date"
+            }
+
+#### DELETE
+
++ Parameters
+
+    + pk (required)
+
++ Response 204 (application/json)
+
+    Primary key
+
+    + Body
+
+            {}
