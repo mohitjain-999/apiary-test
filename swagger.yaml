@@ -1,613 +1,634 @@
-FORMAT: 1A
-
-# Decorist APIs
-
-These are decorist APIs
-
-## Group products
-
-Products API for all brands, selection of brand-specific data sets is done using the "sitecode" attribute
-
-### /products
-
-#### GET
-
-+ Response 200 (application/json)
-
-    Properties (Decorist, One Kings Lane, etc)
-
-    + Body
-
-            [
-                {
-                    "UUID": "[Product UUID]",
-                    "name": "Product name",
-                    "category": [
-                        {
-                            "UUID": "Category UUID",
-                            "name": "Category Name"
-                        },
-                        
-                    ],
-                    "CreationDate": "Date",
-                    "price": "Product price"
-                },
-                
-            ]
-
-#### POST
-
-+ Response 201 (application/json)
-
-    OK
-
-    + Body
-
-            {
-              "UUID": "New product UUID"
-            }
-
-### /products/search
-
-#### 
-
-### /products/{pk}
-
-#### GET
-
-+ Parameters
-
-    + pk (required)
-
-+ Response 200 (application/json)
-
-    OK
-
-    + Body
-
-            {
-                "UUID": "[Product UUID]",
-                "name": "Product name",
-                "category": [
-                    {
-                        "UUID": "Category UUID",
-                        "name": "Category Name"
-                    },
-                    
-                ],
-                "color": [
-                    {
-                        "UUID": "Color UUID",
-                        "name": "Color Name"
-                    },
-                    
-                ],
-                "vendor":{
-                            "UUID": "Vendor UUID",
-                            "name": "Vendor Name"
-                        },
-                "vendor_url": "Vendor site URL",
-                "images": [
-                    "image url",
-                    
-                ],
-                "size": {
-                    "unit": "inches",
-                    "height": "10",
-                    "width": "10",
-                    "depth": "10"
-                },
-                "style": [
-                    "style ID",
-                    
-                ],
-                "meta": {
-                    "Keywords": "Product keywords",
-                    "Description": "Product Description",
-                    "canonical": "Product canonical URL"
-                },
-                "price": "15.21",
-                "item_availability": Boolean,
-                "CreationDate": "Date"
-            },
-
-#### PUT
-
-+ Parameters
-
-    + pk (required)
-
-+ Response 204 (application/json)
-
-    OK
-
-    + Body
-
-            {}
-
-#### DELETE
-
-+ Parameters
-
-    + pk (required)
-
-+ Response 204 (application/json)
-
-    OK
-
-    + Body
-
-            {}
-
-## Group design-solutions
-
-APIs for design-solution
-
-### /design-solutions
-
-#### GET
-
-+ Response 200 (application/json)
-
-    OK
-
-    + Body
-
-            {
-                [
-                    {
-                        "UUID": "[Solution UUID]",
-                        "Key": "Solution Key",
-                        "Designer": {
-                            "UUID": "Designer UUID"
-                        },
-                        "Customer": {
-                            "UUID": "Customer UUID"
-                        },
-                        "Room": "Solution room",
-                        "CreationDate": "Date",
-                        "InternalDueDate": "Date",
-                        "ExternalDueDate": "Date",
-                        "Status": "Solution Status",
-                        "Notes": "Solution Notes"
-                    },
-                    
-                ]
-            }
-
-#### POST
-
-+ Response 201 (application/json)
-
-    OK
-
-    + Body
-
-            {
-              "UUID": "New solution UUID"
-            }
-
-### /design-solutions/list_by_designer
-
-#### 
-
-### /design-solutions/list_by_user
-
-#### 
-
-### /design-solutions/search
-
-#### 
-
-### /design-solutions/{pk}
-
-#### GET
-
-+ Parameters
-
-    + pk (required)
-
-+ Response 200 (application/json)
-
-    OK
-
-    + Body
-
-            {
-              "UUID": "[Solution UUID]",
-              "Key": "Solution Key",
-              "Designer": {
-                "UUID": "Designer UUID"
+swagger: '2.0'
+info:
+  description: These are decorist APIs
+  version: 1.0.0
+  title: Decorist APIs
+host: www.decorist.com
+tags:
+  - name: products
+    description: 'Products API for all brands, selection of brand-specific data sets is done using the "sitecode" attribute'
+    externalDocs:
+      url: 'https://products.decorist.me/'
+  - name: design-solutions
+    description: APIs for design-solution
+  - name: user
+    description: Operations about user
+  - name: boards
+    description: Operations about design boards
+  - name: design-orders
+    description: Operations about design-orders
+schemes:
+  - https
+  - http
+paths:
+  /products:
+    get:
+      tags:
+        - products
+      parameters: []
+      responses:
+        '200':
+          description: 'Properties (Decorist, One Kings Lane, etc)'
+          examples:
+            application/json: |-
+              [
+                  {
+                      "UUID": "[Product UUID]",
+                      "name": "Product name",
+                      "category": [
+                          {
+                              "UUID": "Category UUID",
+                              "name": "Category Name"
+                          },
+                          
+                      ],
+                      "CreationDate": "Date",
+                      "price": "Product price"
+                  },
+                  
+              ]
+    post:
+      tags:
+        - products
+      parameters: []
+      responses:
+        '201':
+          description: OK
+          examples:
+            application/json: |-
+              {
+                  "UUID": "New product UUID"
+              }
+  /products/search:
+    get:
+      tags:
+        - products
+      parameters: []
+      responses:
+        '200':
+          description: 'Search key OR Color OR Category OR Price, '
+          examples: {}
+  '/products/{pk}':
+    get:
+      tags:
+        - products
+      parameters:
+        - in: path
+          name: pk
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          examples:
+            application/json: |
+              {
+                  "UUID": "[Product UUID]",
+                  "name": "Product name",
+                  "category": [
+                      {
+                          "UUID": "Category UUID",
+                          "name": "Category Name"
+                      },
+                      
+                  ],
+                  "color": [
+                      {
+                          "UUID": "Color UUID",
+                          "name": "Color Name"
+                      },
+                      
+                  ],
+                  "vendor":{
+                              "UUID": "Vendor UUID",
+                              "name": "Vendor Name"
+                          },
+                  "vendor_url": "Vendor site URL",
+                  "images": [
+                      "image url",
+                      
+                  ],
+                  "size": {
+                      "unit": "inches",
+                      "height": "10",
+                      "width": "10",
+                      "depth": "10"
+                  },
+                  "style": [
+                      "style ID",
+                      
+                  ],
+                  "meta": {
+                      "Keywords": "Product keywords",
+                      "Description": "Product Description",
+                      "canonical": "Product canonical URL"
+                  },
+                  "price": "15.21",
+                  "item_availability": Boolean,
+                  "CreationDate": "Date"
               },
-              "Customer": {
-                "UUID": "Customer UUID"
-              },
-              "Room": "Solution room",
-              "CreationDate": "Date",
-              "InternalDueDate": "Date",
-              "ExternalDueDate": "Date",
-              "Status": "Solution Status",
-              "Notes": "Solution Notes"
-            }
-
-#### PUT
-
-+ Parameters
-
-    + pk (required)
-
-+ Response 204 (application/json)
-
-    OK
-
-    + Body
-
-            {
-              "UUID": "[Solution UUID]",
-              "Key": "Solution Key",
-              "Designer": {
-                "UUID": "Designer UUID"
-              },
-              "Customer": {
-                "UUID": "Customer UUID"
-              },
-              "Room": "Solution room",
-              "CreationDate": "Date",
-              "InternalDueDate": "Date",
-              "ExternalDueDate": "Date",
-              "Status": "Solution Status",
-              "Notes": "Solution Notes"
-            }
-
-#### DELETE
-
-+ Parameters
-
-    + pk (required)
-
-+ Response 204 (application/json)
-
-    OK
-
-    + Body
-
-            {
-              "UUID": "[Solution UUID]",
-              "Key": "Solution Key",
-              "Designer": {
-                "UUID": "Designer UUID"
-              },
-              "Customer": {
-                "UUID": "Customer UUID"
-              },
-              "Room": "Solution room",
-              "CreationDate": "Date",
-              "InternalDueDate": "Date",
-              "ExternalDueDate": "Date",
-              "Status": "Solution Status",
-              "Notes": "Solution Notes"
-            }
-
-## Group boards
-
-Operations about design boards
-
-### /boards
-
-#### GET
-
-+ Response 200 (application/json)
-
-    OK
-
-    + Body
-
-            {
-                [
-                    {
-                        "UUID": "[Board UUID]",
-                        "Author": {
-                            "UUID": "Author UUID"
-                        },
-                        "CreationDate": "Date",
-                        "Name": "Board Name"
-                    },
-                    
-                ]
-            }
-
-#### POST
-
-+ Response 201 (application/json)
-
-    OK
-
-    + Body
-
-            {}
-
-### /boards/list_by_author
-
-#### 
-
-### /boards/search
-
-#### 
-
-### /boards/{pk}
-
-#### GET
-
-+ Parameters
-
-    + pk (required)
-
-+ Response 200 (application/json)
-
-    Primary key
-
-    + Body
-
-            {
-              "UUID": "New Board UUID"
-            }
-
-#### PUT
-
-+ Parameters
-
-    + pk (required)
-
-+ Response 204 (application/json)
-
-    Primary key
-
-    + Body
-
-            {}
-
-#### DELETE
-
-+ Parameters
-
-    + pk (required)
-
-+ Response 204 (application/json)
-
-    Primary key
-
-    + Body
-
-            {}
-
-### /boards/{pk}/send
-
-#### POST
-
-+ Parameters
-
-    + pk (required)
-
-+ Response 204 (application/json)
-
-    Primary key, email(s)
-
-    + Body
-
-            {}
-
-## Group user
-
-Operations about user
-
-### /users
-
-#### GET
-
-+ Response 200 (application/json)
-
-    OK
-
-    + Body
-
-            {
-                [
-                    {
-                        "UUID": "[User UUID]",
-                        "first_name": "First Name", 
-                        "last_name": "Last Name",
-                        "is_admin": Boolean,
-                        "groups": [
-                            {
-                                "UUID": "Group UUID",
-                                "Name": "Group name"
-                            },
-                            
-                        ],
-                        "CreationDate": "Date"
-                    },
-                    
-                ]
-            }
-
-#### POST
-
-+ Response 201 (application/json)
-
-    OK
-
-    + Body
-
-            {
-              "UUID": "New User UUID"
-            }
-
-### /users/list_by_group
-
-#### 
-
-### /users/search
-
-#### 
-
-### /users/{pk}
-
-#### GET
-
-+ Parameters
-
-    + pk (required)
-
-+ Response 200 (application/json)
-
-    Primary key
-
-    + Body
-
-            {
-                "UUID": "[User UUID]",
-                "first_name": "First Name", 
-                "last_name": "Last Name",
-                "is_admin": Boolean,
-                "groups": [
-                    {
-                        "UUID": "Group UUID",
-                        "Name": "Group name"
-                    },
-                    
-                ],
-                "CreationDate": "Date"
-            }
-
-#### PUT
-
-+ Parameters
-
-    + pk (required)
-
-+ Response 204 (application/json)
-
-    Primary key
-
-    + Body
-
-            {}
-
-#### DELETE
-
-+ Parameters
-
-    + pk (required)
-
-+ Response 204 (application/json)
-
-    Primary key
-
-    + Body
-
-            {}
-
-### /users/reset_password
-
-#### POST
-
-+ Response 204 (application/json)
-
-    Email address
-
-    + Body
-
-            {}
-
-## Group design-orders
-
-Operations about design-orders
-
-### /design-orders
-
-#### GET
-
-+ Response 200 (application/json)
-
-    OK
-
-    + Body
-
-            {
-                [
-                    {
-                        "UUID": "[User UUID]",
-                        "first_name": "First Name", 
-                        "last_name": "Last Name",
-                        "is_admin": Boolean,
-                        "groups": [
-                            {
-                                "UUID": "Group UUID",
-                                "Name": "Group name"
-                            },
-                            
-                        ],
-                        "CreationDate": "Date"
-                    },
-                    
-                ]
-            }
-
-#### POST
-
-+ Response 201 (application/json)
-
-    OK
-
-    + Body
-
-            {
-              "UUID": "New User UUID"
-            }
-
-### /design-orders/search
-
-#### 
-
-### /design-orders/{pk}
-
-#### GET
-
-+ Parameters
-
-    + pk (required)
-
-+ Response 200 (application/json)
-
-    Primary key
-
-    + Body
-
-            {
-                "UUID": "[User UUID]",
-                "first_name": "First Name", 
-                "last_name": "Last Name",
-                "is_admin": Boolean,
-                "groups": [
-                    {
-                        "UUID": "Group UUID",
-                        "Name": "Group name"
-                    },
-                    
-                ],
-                "CreationDate": "Date"
-            }
-
-#### DELETE
-
-+ Parameters
-
-    + pk (required)
-
-+ Response 204 (application/json)
-
-    Primary key
-
-    + Body
-
-            {}
+    put:
+      tags:
+        - products
+      parameters:
+        - in: path
+          name: pk
+          required: true
+          type: string
+      responses:
+        '204':
+          description: OK
+          examples:
+            application/json: '{}'
+    delete:
+      tags:
+        - products
+      parameters:
+        - in: path
+          name: pk
+          required: true
+          type: string
+      responses:
+        '204':
+          description: OK
+          examples:
+            application/json: '{}'
+  /design-solutions:
+    get:
+      tags:
+        - design-solutions
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          examples:
+            application/json: |-
+              {
+                  [
+                      {
+                          "UUID": "[Solution UUID]",
+                          "Key": "Solution Key",
+                          "Designer": {
+                              "UUID": "Designer UUID"
+                          },
+                          "Customer": {
+                              "UUID": "Customer UUID"
+                          },
+                          "Room": "Solution room",
+                          "CreationDate": "Date",
+                          "InternalDueDate": "Date",
+                          "ExternalDueDate": "Date",
+                          "Status": "Solution Status",
+                          "Notes": "Solution Notes"
+                      },
+                      
+                  ]
+              }
+    post:
+      tags:
+        - design-solutions
+      parameters: []
+      responses:
+        '201':
+          description: OK
+          examples:
+            application/json: |-
+              {
+                  "UUID": "New solution UUID"
+              }
+  /design-solutions/list_by_designer:
+    get:
+      tags:
+        - design-solutions
+      parameters: []
+      responses:
+        '200':
+          description: Designer UUID
+          examples: {}
+  /design-solutions/list_by_user:
+    get:
+      tags:
+        - design-solutions
+      parameters: []
+      responses:
+        '200':
+          description: User UUID
+          examples: {}
+  /design-solutions/search:
+    get:
+      tags:
+        - design-solutions
+      parameters: []
+      responses:
+        '200':
+          description: Search query
+          examples: {}
+  '/design-solutions/{pk}':
+    get:
+      tags:
+        - design-solutions
+      parameters:
+        - in: path
+          name: pk
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          examples:
+            application/json: |-
+              {
+                  "UUID": "[Solution UUID]",
+                  "Key": "Solution Key",
+                  "Designer": {
+                      "UUID": "Designer UUID"
+                  },
+                  "Customer": {
+                      "UUID": "Customer UUID"
+                  },
+                  "Room": "Solution room",
+                  "CreationDate": "Date",
+                  "InternalDueDate": "Date",
+                  "ExternalDueDate": "Date",
+                  "Status": "Solution Status",
+                  "Notes": "Solution Notes"
+              }
+    put:
+      tags:
+        - design-solutions
+      parameters:
+        - in: path
+          name: pk
+          required: true
+          type: string
+      responses:
+        '204':
+          description: OK
+          examples:
+            application/json: |-
+              {
+                  "UUID": "[Solution UUID]",
+                  "Key": "Solution Key",
+                  "Designer": {
+                      "UUID": "Designer UUID"
+                  },
+                  "Customer": {
+                      "UUID": "Customer UUID"
+                  },
+                  "Room": "Solution room",
+                  "CreationDate": "Date",
+                  "InternalDueDate": "Date",
+                  "ExternalDueDate": "Date",
+                  "Status": "Solution Status",
+                  "Notes": "Solution Notes"
+              }
+    delete:
+      tags:
+        - design-solutions
+      parameters:
+        - in: path
+          name: pk
+          required: true
+          type: string
+      responses:
+        '204':
+          description: OK
+          examples:
+            application/json: |-
+              {
+                  "UUID": "[Solution UUID]",
+                  "Key": "Solution Key",
+                  "Designer": {
+                      "UUID": "Designer UUID"
+                  },
+                  "Customer": {
+                      "UUID": "Customer UUID"
+                  },
+                  "Room": "Solution room",
+                  "CreationDate": "Date",
+                  "InternalDueDate": "Date",
+                  "ExternalDueDate": "Date",
+                  "Status": "Solution Status",
+                  "Notes": "Solution Notes"
+              }
+  /boards:
+    get:
+      tags:
+        - boards
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          examples:
+            application/json: |-
+              {
+                  [
+                      {
+                          "UUID": "[Board UUID]",
+                          "Author": {
+                              "UUID": "Author UUID"
+                          },
+                          "CreationDate": "Date",
+                          "Name": "Board Name"
+                      },
+                      
+                  ]
+              }
+    post:
+      tags:
+        - boards
+      parameters: []
+      responses:
+        '201':
+          description: OK
+          examples:
+            application/json: '{}'
+  /boards/list_by_author:
+    get:
+      tags:
+        - boards
+      parameters: []
+      responses:
+        '200':
+          description: Author UUID
+          examples: {}
+  /boards/search:
+    get:
+      tags:
+        - boards
+      parameters: []
+      responses:
+        '200':
+          description: Text search key
+          examples: {}
+  '/boards/{pk}':
+    get:
+      tags:
+        - boards
+      parameters:
+        - in: path
+          name: pk
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Primary key
+          examples:
+            application/json: |-
+              {
+                  "UUID": "New Board UUID"
+              }
+    put:
+      tags:
+        - boards
+      parameters:
+        - in: path
+          name: pk
+          required: true
+          type: string
+      responses:
+        '204':
+          description: Primary key
+          examples:
+            application/json: '{}'
+    delete:
+      tags:
+        - boards
+      parameters:
+        - in: path
+          name: pk
+          required: true
+          type: string
+      responses:
+        '204':
+          description: Primary key
+          examples:
+            application/json: '{}'
+  '/boards/{pk}/send':
+    post:
+      tags:
+        - boards
+      parameters:
+        - in: path
+          name: pk
+          required: true
+          type: string
+      responses:
+        '204':
+          description: 'Primary key, email(s)'
+          examples:
+            application/json: '{}'
+  /users:
+    get:
+      tags:
+        - user
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          examples:
+            application/json: |-
+              {
+                  [
+                      {
+                          "UUID": "[User UUID]",
+                          "first_name": "First Name", 
+                          "last_name": "Last Name",
+                          "is_admin": Boolean,
+                          "groups": [
+                              {
+                                  "UUID": "Group UUID",
+                                  "Name": "Group name"
+                              },
+                              
+                          ],
+                          "CreationDate": "Date"
+                      },
+                      
+                  ]
+              }
+    post:
+      tags:
+        - user
+      parameters: []
+      responses:
+        '201':
+          description: OK
+          examples:
+            application/json: |-
+              {
+                  "UUID": "New User UUID"
+              }
+  /users/list_by_group:
+    get:
+      tags:
+        - user
+      parameters: []
+      responses:
+        '200':
+          description: Group UUID
+          examples: {}
+  /users/search:
+    get:
+      tags:
+        - user
+      parameters: []
+      responses:
+        '200':
+          description: Text search key
+          examples: {}
+  '/users/{pk}':
+    get:
+      tags:
+        - user
+      parameters:
+        - in: path
+          name: pk
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Primary key
+          examples:
+            application/json: |-
+              {
+                  "UUID": "[User UUID]",
+                  "first_name": "First Name", 
+                  "last_name": "Last Name",
+                  "is_admin": Boolean,
+                  "groups": [
+                      {
+                          "UUID": "Group UUID",
+                          "Name": "Group name"
+                      },
+                      
+                  ],
+                  "CreationDate": "Date"
+              }
+    put:
+      tags:
+        - user
+      parameters:
+        - in: path
+          name: pk
+          required: true
+          type: string
+      responses:
+        '204':
+          description: Primary key
+          examples:
+            application/json: '{}'
+    delete:
+      tags:
+        - user
+      parameters:
+        - in: path
+          name: pk
+          required: true
+          type: string
+      responses:
+        '204':
+          description: Primary key
+          examples:
+            application/json: '{}'
+  /users/reset_password:
+    post:
+      tags:
+        - user
+      parameters: []
+      responses:
+        '204':
+          description: Email address
+          examples:
+            application/json: '{}'
+  /design-orders:
+    get:
+      tags:
+        - design-orders
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          examples:
+            application/json: |-
+              {
+                  [
+                      {
+                          "UUID": "[User UUID]",
+                          "first_name": "First Name", 
+                          "last_name": "Last Name",
+                          "is_admin": Boolean,
+                          "groups": [
+                              {
+                                  "UUID": "Group UUID",
+                                  "Name": "Group name"
+                              },
+                              
+                          ],
+                          "CreationDate": "Date"
+                      },
+                      
+                  ]
+              }
+    post:
+      tags:
+        - design-orders
+      parameters: []
+      responses:
+        '201':
+          description: OK
+          examples:
+            application/json: |-
+              {
+                  "UUID": "New User UUID"
+              }
+  /design-orders/search:
+    get:
+      tags:
+        - design-orders
+      parameters: []
+      responses:
+        '200':
+          description: 'email OR order_id OR '
+          examples: {}
+  '/design-orders/{pk}':
+    get:
+      tags:
+        - design-orders
+      parameters:
+        - in: path
+          name: pk
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Primary key
+          examples:
+            application/json: |-
+              {
+                  "UUID": "[User UUID]",
+                  "first_name": "First Name", 
+                  "last_name": "Last Name",
+                  "is_admin": Boolean,
+                  "groups": [
+                      {
+                          "UUID": "Group UUID",
+                          "Name": "Group name"
+                      },
+                      
+                  ],
+                  "CreationDate": "Date"
+              }
+    delete:
+      tags:
+        - design-orders
+      parameters:
+        - in: path
+          name: pk
+          required: true
+          type: string
+      responses:
+        '204':
+          description: Primary key
+          examples:
+            application/json: '{}'
